@@ -120,4 +120,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# For custom User model
 AUTH_USER_MODEL = 'artist_direct.User'
