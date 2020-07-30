@@ -3,8 +3,14 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.db import IntegrityError
+from django.forms import ModelForm
 
-from .models import User
+from .models import User, Profile
+
+class ProfileForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ["f_name", "l_name", "bio", "location", "genre", "instrument"]
 
 def index(request):
     return render(request, "artist_direct/index.html")
@@ -60,6 +66,20 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "artist_direct/register.html")
+
+# Create profile of user
+def create_profile(request):
+    if request.method == "POST":
+        form = ProfileForm(reguest.POST)
+        if form.is_valid():
+            return HttpResponse("Creating User Profile")
+    else:
+        form = ProfileForm()
+    return render(request, "artist_direct/create_profile.html", { "form": form })
+   
+
+
+        
 
 
 
