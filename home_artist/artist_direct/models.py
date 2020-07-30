@@ -31,9 +31,7 @@ class Profile(models.Model):
         (MUSICAL_THEATER, "Musical_Theater"),
     ]
 
-    user = models.OneToOneField(
-        User, on_delete=models.CASCADE, primary_key=True, related_name="user_profile"
-    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_profile")
     f_name = models.CharField(max_length=24, blank=True)
     l_name = models.CharField(max_length=24, blank=True)
     bio = models.TextField(blank=True)
@@ -45,6 +43,14 @@ class Profile(models.Model):
     )
     instrument = models.CharField(max_length=24, blank=True)
 
+    @property
+    def full_name(self):
+        "Returns user's full name"
+        return "%s %s" %(self.f_name, self.l_name)
+
+
     def __str__(self):
         return f"User Profile: {self.f_name}, {self.l_name}, Bio:  {self.bio}, Resides:{self.location}, Genre: {self.genre}, Instrument: {self.instrument}"
 
+    class Meta:
+        ordering = ["l_name"]
