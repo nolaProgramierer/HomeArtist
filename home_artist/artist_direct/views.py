@@ -12,6 +12,7 @@ class ProfileForm(ModelForm):
         model = Profile
         fields = ["f_name", "l_name", "bio", "location", "genre", "instrument"]
 
+
 def index(request):
     return render(request, "artist_direct/index.html")
 
@@ -67,15 +68,28 @@ def register(request):
     else:
         return render(request, "artist_direct/register.html")
 
-# Create profile of user
+
+# Display create user profile form and post to db if valid
 def create_profile(request):
     if request.method == "POST":
-        form = ProfileForm(reguest.POST)
+        form = ProfileForm(request.POST)
         if form.is_valid():
-            return HttpResponse("Creating User Profile")
+            profile = form.save(commit=False)
+            profile.user = request.user
+            profile.save()
+            return HttpResponseRedirect(reverse("index"))
+        else:
+            return render(request, "artist_direct/create_profile.html", { "form": ProfileForm() })
     else:
         form = ProfileForm()
     return render(request, "artist_direct/create_profile.html", { "form": form })
+
+# Display artist index
+def artist_index(request):
+    # For users with a profile list the profile alphbetical order
+    users = User.objects.all()
+    context = { "users": users }
+    return render(request, "artist_direct/artist_index.html", context)
    
 
 

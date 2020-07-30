@@ -1,9 +1,16 @@
 {% extends "artist_direct/layout.html" %}
+{% load crispy_forms_tags %}
 
 {% block body %}
 
 <h3>Create User Profile</h3>
+<form action="create_profile", method="POST">
+    {% csrf_token %}
+    
+    {{ form|crispy }}
+    <input type="submit" value="Create Profile">
 
-{{ form }}
+</form>
+
 
 {% endblock %}
