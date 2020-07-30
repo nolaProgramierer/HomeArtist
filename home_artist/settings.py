@@ -138,8 +138,9 @@ AUTH_USER_MODEL = 'artist_direct.User'
 # Activate Django-Heroku
 django_heroku.settings(locals())
 
+STATIC_ROOT  =   os.path.join(BASE_DIR, 'staticfiles')
 
-STATIC_ROOT  =   os.path.join(PROJECT_ROOT, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 
 
