@@ -46,7 +46,7 @@ class Profile(models.Model):
     @property
     def full_name(self):
         "Returns user's full name"
-        return "%s %s" %(self.f_name, self.l_name)
+        return "%s %s" %(self.f_name, self.l_name.)
 
 
     def __str__(self):
