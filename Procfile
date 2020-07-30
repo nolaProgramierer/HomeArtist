@@ -1,1 +1,1 @@
-web: gunicorn home_artist.wsgi --log-file-
+web: gunicorn home_artist.wsgi 
