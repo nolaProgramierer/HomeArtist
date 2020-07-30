@@ -1,1 +1,1 @@
-web: gunicorn home_artist.wsgi 
+web: gunicorn home_artist.wsgi
