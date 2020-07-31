@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.db import IntegrityError
@@ -84,12 +84,33 @@ def create_profile(request):
         form = ProfileForm()
     return render(request, "artist_direct/create_profile.html", { "form": form })
 
+
 # Display artist index
 def artist_index(request):
     # For users with a profile list the profile alphbetical order
     users = User.objects.all()
     context = { "users": users }
     return render(request, "artist_direct/artist_index.html", context)
+
+
+# Display individual profile for each artist
+def artist_profile(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    profile = get_object_or_404(Profile, user=user_id)
+    context = {
+        "f_name": profile.f_name,
+        "l_name": profile.l_name,
+        "bio": profile.bio,
+        "location": profile.location,
+        "genre": profile.genre,
+        "instrument": profile.instrument,
+        "profile_id": profile.id,
+    }
+    return render(request, "artist_direct/artist_profile.html", context)
+
+# Edit profile of artist
+def edit_profile(request, profile_id):
+    return HttpResponse("Profile Edit")
    
 
 

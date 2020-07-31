@@ -1,0 +1,12 @@
+{% extends "artist_direct/layout.html" %}
+
+{% block body %}
+Profile for: {{ f_name }} {{ l_name }}
+
+
+{{ bio }} {{ location }}
+{{ genre }} {{ instrument }}
+
+<a href="{% url 'edit_profile' profile_id %}" class="btn btn-outline-primary">Edit Profile</a>
+
+{% endblock %}
