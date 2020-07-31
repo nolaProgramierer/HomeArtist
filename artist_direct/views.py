@@ -113,6 +113,8 @@ def artist_profile(request, user_id):
         "genre": profile.genre,
         "instrument": profile.instrument,
         "profile_id": profile.id,
+        "profile_user_id": profile.user.id,
+        "current_user_id": request.user.id
     }
     return render(request, "artist_direct/artist_profile.html", context)
 

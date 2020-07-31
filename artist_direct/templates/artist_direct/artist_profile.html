@@ -7,6 +7,9 @@ Profile for: {{ f_name }} {{ l_name }}
 {{ bio }} {{ location }}
 {{ genre }} {{ instrument }}
 
+<!--Edit button renders only if current user is the owner of the profile-->
+{% if current_user_id  ==  profile_user_id %}
 <a href="{% url 'edit_profile' profile_id %}" class="btn btn-outline-primary">Edit Profile</a>
+{% endif %}
 
 {% endblock %}
