@@ -1,9 +1,10 @@
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.db import IntegrityError
 from django.forms import ModelForm
+
 
 from .models import User, Profile
 
@@ -11,6 +12,13 @@ class ProfileForm(ModelForm):
     class Meta:
         model = Profile
         fields = ["f_name", "l_name", "bio", "location", "genre", "instrument"]
+
+
+class EditProfileForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ["f_name", "l_name", "bio", "location", "genre", "instrument"]
+
 
 
 def index(request):
@@ -110,7 +118,18 @@ def artist_profile(request, user_id):
 
 # Edit profile of artist
 def edit_profile(request, profile_id):
-    return HttpResponse("Profile Edit")
+    profile = get_object_or_404(Profile, pk=profile_id)
+    if request.method == "POST":
+        form = EditProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            edited_obj = form.save(commit=False)
+            edited_obj.save()
+            return HttpResponseRedirect(reverse("artist_profile", args=(profile_id,)))
+    else:   
+        form = EditProfileForm(instance=profile)
+        context = {"form": form, "profile_id": profile_id}
+        return render(request, "artist_direct/edit_profile.html", context)
+
    
 
 
