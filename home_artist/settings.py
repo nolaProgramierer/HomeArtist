@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+# For heroku deploy
+import django_heroku
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -140,6 +142,11 @@ AUTH_USER_MODEL = 'artist_direct.User'
 STATIC_ROOT  =   os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+#For heroku deploy
+django_heroku.settings(locals())
+
+
 
 
 
