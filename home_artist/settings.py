@@ -12,8 +12,17 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+
 # For heroku deploy
+# ------------------
 import django_heroku
+
+# doctenv config
+# ----------------------------
+from dotenv import load_dotenv
+load_dotenv()
+
+
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -43,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'artist_direct',
     'crispy_forms',
+    'storages',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -136,12 +146,40 @@ STATIC_URL = '/static/'
 # For custom User model
 AUTH_USER_MODEL = 'artist_direct.User'
 
-# Activate Django-Heroku
-#django_heroku.settings(locals())
 
 STATIC_ROOT  =   os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+#AWS Configuartion
+# --------------------------------------------------------------------
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = 's33a-assets'
+
+
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = 'assets'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'artist_direct/static'),
+]
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+
+#STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
+
+
+
+
+
 
 #For heroku deploy
 django_heroku.settings(locals())
