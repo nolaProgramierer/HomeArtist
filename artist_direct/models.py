@@ -54,3 +54,9 @@ class Profile(models.Model):
 
     class Meta:
         ordering = ["l_name"]
+
+    
+class Image(models.Model):
+    image = models.ImageField(upload_to="img")
+    title = models.CharField(max_length=50, blank=True)
+    description = models.TextField(blank=True)

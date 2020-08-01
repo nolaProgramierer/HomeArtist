@@ -6,7 +6,7 @@ from django.db import IntegrityError
 from django.forms import ModelForm
 
 
-from .models import User, Profile
+from .models import User, Profile, Image
 
 class ProfileForm(ModelForm):
     class Meta:
@@ -18,6 +18,12 @@ class EditProfileForm(ModelForm):
     class Meta:
         model = Profile
         fields = ["f_name", "l_name", "bio", "location", "genre", "instrument"]
+
+
+class ImageForm(ModelForm):
+    class Meta:
+        model = Image
+        fields = ["image", "title", "description"]
 
 
 
@@ -131,6 +137,17 @@ def edit_profile(request, profile_id):
         form = EditProfileForm(instance=profile)
         context = {"form": form, "profile_id": profile_id}
         return render(request, "artist_direct/edit_profile.html", context)
+
+#  Upload image
+def image_upload(request):
+    if request.method == "POST":
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("Image saved")
+    else:
+        form = ImageForm()
+    return render(request, "artist_direct/image_upload.html", {"form": form })
 
    
 
