@@ -1,4 +1,3 @@
-import django_heroku
 
 """
 Django settings for home_artist project.
@@ -136,7 +135,7 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'artist_direct.User'
 
 # Activate Django-Heroku
-django_heroku.settings(locals())
+#django_heroku.settings(locals())
 
 STATIC_ROOT  =   os.path.join(BASE_DIR, 'staticfiles')
 
