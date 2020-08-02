@@ -58,7 +58,6 @@ INSTALLED_APPS = [
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -141,56 +140,33 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+
 
 # For custom User model
 AUTH_USER_MODEL = 'artist_direct.User'
 
 
-STATIC_ROOT  =   os.path.join(BASE_DIR, 'staticfiles')
-
-#STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-
 #AWS Configuartion
 # --------------------------------------------------------------------
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = 's33a-assets'
-
-
+AWS_STORAGE_BUCKET_NAME = 's33a-static'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
-AWS_LOCATION = 'assets'
+STATICFILES_LOCATION = 'static'
+MEDIAFILES_LOCATION = 'media'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'artist_direct/static'),
 ]
-STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-#STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-
-
-
-
+#DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
 
 #For heroku deploy
 django_heroku.settings(locals())
-
-
-
-
-
-
-
-
-
-
-
