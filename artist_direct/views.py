@@ -5,7 +5,6 @@ from django.urls import reverse
 from django.db import IntegrityError
 from django.forms import ModelForm
 
-
 from .models import User, Profile, Image
 
 class ProfileForm(ModelForm):
@@ -25,12 +24,6 @@ class ImageForm(ModelForm):
         model = Image
         fields = ["image", "title", "description"]
         
-        def save(self):
-            image = super(ImageForm, self).save()
-            return image
-
-
-
 
 def index(request):
     return render(request, "artist_direct/index.html")
@@ -129,6 +122,7 @@ def artist_profile(request, user_id):
     }
     return render(request, "artist_direct/artist_profile.html", context)
 
+
 # Edit profile of artist
 def edit_profile(request, profile_id):
     profile = get_object_or_404(Profile, pk=profile_id)
@@ -143,14 +137,15 @@ def edit_profile(request, profile_id):
         context = {"form": form, "profile_id": profile_id}
         return render(request, "artist_direct/edit_profile.html", context)
 
+
 #  Upload image
 def image_upload(request):
-    images = Image.objects.all()
     if request.method == "POST":
         form = ImageForm(request.POST, request.FILES)
         if form.is_valid():
+            #image = ImageForm(image_field=request.FILES['image'])
             form.save()
-            return HttpResponse("Image saved")
+            return render(request, "artist_direct/index.html", { "form": form })
     else:
         form = ImageForm()
     return render(request, "artist_direct/image_upload.html", {"form": form })
