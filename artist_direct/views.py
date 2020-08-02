@@ -140,6 +140,9 @@ def edit_profile(request, profile_id):
 
 #  Upload image
 def image_upload(request):
+    user = request.user
+    user_profile = Profile.objects.get(pk==user.id)
+    
     if request.method == "POST":
         form = ImageForm(request.POST, request.FILES)
         if form.is_valid():

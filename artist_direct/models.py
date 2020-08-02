@@ -66,8 +66,5 @@ class Image(models.Model):
     )
 
     def __str__(self):
-        self.image
-
-    def image_default():
-        return
+        return f"Image title: {self.title} Description: {self.description} Image Profile User: {self.profile.user.username}"
 
