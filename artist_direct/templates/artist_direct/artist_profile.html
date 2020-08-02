@@ -12,4 +12,6 @@ Profile for: {{ f_name }} {{ l_name }}
 <a href="{% url 'edit_profile' profile_id %}" class="btn btn-outline-primary">Edit Profile</a>
 {% endif %}
 
+<img src="{{ form.instance.image.url }}"/>
+
 {% endblock %}

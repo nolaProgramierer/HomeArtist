@@ -106,7 +106,7 @@ def artist_index(request):
 
 
 # Display individual profile for each artist
-def artist_profile(request, user_id):
+def artist_profile(request, user_id, newContext={}):
     user = get_object_or_404(User, pk=user_id)
     profile = get_object_or_404(Profile, user=user_id)
     context = {
@@ -120,6 +120,7 @@ def artist_profile(request, user_id):
         "profile_user_id": profile.user.id,
         "current_user_id": request.user.id
     }
+    context.update(newContext)
     return render(request, "artist_direct/artist_profile.html", context)
 
 
@@ -141,14 +142,17 @@ def edit_profile(request, profile_id):
 #  Upload image
 def image_upload(request):
     user = request.user
-    user_profile = Profile.objects.get(pk==user.id)
+    user_profile = Profile.objects.get(pk=user.id)
     
     if request.method == "POST":
         form = ImageForm(request.POST, request.FILES)
         if form.is_valid():
             #image = ImageForm(image_field=request.FILES['image'])
             form.save()
-            return render(request, "artist_direct/index.html", { "form": form })
+            context = { "form": form }
+            response = artist_profile(request, user_profile.id, context)
+            return response          
+            #return HttpResponseRedirect(reverse("artist_profile", args=(user_profile.id)))
     else:
         form = ImageForm()
     return render(request, "artist_direct/image_upload.html", {"form": form })
