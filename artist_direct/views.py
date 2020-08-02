@@ -145,6 +145,7 @@ def edit_profile(request, profile_id):
 
 #  Upload image
 def image_upload(request):
+    images = Image.objects.all()
     if request.method == "POST":
         form = ImageForm(request.POST, request.FILES)
         if form.is_valid():
