@@ -4,8 +4,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.db import IntegrityError
 from django.forms import ModelForm
+from django.db.models import Q
 
 from .models import User, Profile, Image
+
 
 
 class ProfileForm(ModelForm):
@@ -193,7 +195,11 @@ def image_upload(request):
 # Search models
 def search(request):
     query = request.GET["query"]
-    profiles = Profile.objects.filter(f_name__contains=query)
-    return render(request, "artist_direct/index.html", { "profiles":profiles })
-    
+    if query is not None:
+        matches = Q(f_name__icontains=query) | Q(l_name__icontains=query) | Q(bio__icontains=query)
+        profiles = Profile.objects.filter(matches).distinct()
+        return render(request, "artist_direct/index.html", {"profiles": profiles})
+    else:
+        message = "There are no matches for your entry."
+        return render(request, "artist_direct/index.html", { "message": message} )
 
