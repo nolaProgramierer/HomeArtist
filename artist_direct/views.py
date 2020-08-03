@@ -82,6 +82,7 @@ def register(request):
     if request.method == "POST":
         username = request.POST["username"]
         email = request.POST["email"]
+        type = request.POST["type"]
 
         # Ensure password matches confirmation
         password = request.POST["password"]
@@ -104,7 +105,12 @@ def register(request):
                 {"message": "Username already taken."},
             )
         login(request, user)
-        return HttpResponseRedirect(reverse("index"))
+        
+        # According to choice of user type, user is redirected to appropriate page
+        if type == "artist":
+            return HttpResponseRedirect(reverse("create_profile"))
+        else:
+            return HttpResponseRedirect(reverse("artist_index"))
     else:
         return render(request, "artist_direct/register.html")
 
@@ -117,7 +123,7 @@ def create_profile(request):
             profile = form.save(commit=False)
             profile.user = request.user
             profile.save()
-            return HttpResponseRedirect(reverse("index"))
+            return HttpResponseRedirect(reverse("artist_index"))
         else:
             return render(
                 request, "artist_direct/create_profile.html", {"form": ProfileForm()}
@@ -195,10 +201,14 @@ def image_upload(request):
 def search(request):
     query = request.GET["query"]
     if query is not None:
-        matches = Q(f_name__icontains=query) | Q(l_name__icontains=query) | Q(bio__icontains=query)
+        matches = (
+            Q(f_name__icontains=query)
+            | Q(l_name__icontains=query)
+            | Q(bio__icontains=query)
+        )
         profiles = Profile.objects.filter(matches).distinct()
         return render(request, "artist_direct/index.html", {"profiles": profiles})
     else:
         message = "There are no matches for your entry."
-        return render(request, "artist_direct/index.html", { "message": message} )
+        return render(request, "artist_direct/index.html", {"message": message})
 
