@@ -9,7 +9,6 @@ from django.db.models import Q
 from .models import User, Profile, Image
 
 
-
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile

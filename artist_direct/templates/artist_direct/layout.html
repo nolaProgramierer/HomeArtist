@@ -40,7 +40,7 @@
                     <a class="nav-link" href="">Something Else</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
+                    <a class="nav-link" href="{% url 'register' %}">Register</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">Login</a>
@@ -55,21 +55,22 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="{% url 'create_profile' %}">Create Profile</a>
-                        <a class="dropdown-item" href="">Edit Profile</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
                     </div>
                 </li>
             </ul>
             <form action="search" class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search.." name="query" aria-label="Search">
+                <input class="form-control mr-sm-2" type="text" placeholder="Artist search.." name="query" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Submit</button>
             </form>
         </div>
     </nav>
 
     <div class="container-fluid">
-        {% block body %}
-        {% endblock %}
+       <body>
+            {% block  body %}
+            {% endblock %}
+        </body>
+        
     </div>
 
 </body>
