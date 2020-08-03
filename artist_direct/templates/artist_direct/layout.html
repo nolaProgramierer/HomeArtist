@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="{% static 'artist_direct/styles.css' %}" rel="stylesheet">
+    <script src="{% static 'artist_direct/scripts.js' %}"></script>
     <!--Bootstrap JS-->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -18,8 +19,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
-    <script src="{% static 'artist_direct/scripts.js' %}"></script>
-
 
 </head>
 
@@ -59,18 +58,20 @@
                 </li>
             </ul>
             <form action="search" class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Artist search.." name="query" aria-label="Search">
+                <input class="form-control mr-sm-2" type="text" placeholder="Artist search.." name="query"
+                    aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Submit</button>
             </form>
         </div>
     </nav>
 
     <div class="container-fluid">
-       <body>
+
+        <body>
             {% block  body %}
             {% endblock %}
         </body>
-        
+
     </div>
 
 </body>

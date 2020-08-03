@@ -3,10 +3,22 @@ from django.db import models
 
 
 class User(AbstractUser):
+
+    EVENT_ORGANIZER = "event_organizer"
+    ARTIST = "artist"
+
+    USER_TYPE_CHOICES = [
+        (EVENT_ORGANIZER, "Event Organizer"),
+        (ARTIST, "Artist"),
+    ]
+
+    type = models.CharField(max_length=24, choices=USER_TYPE_CHOICES, default=EVENT_ORGANIZER)
+
     def __str__(self):
-        return f"User: {self.username}, Email: {self.email}"
+        return f"User: {self.username}, Email: {self.email} Type: {self.type}"
 
     pass
+
 
 
 class Profile(models.Model):
