@@ -6,8 +6,17 @@
 <h3>Artist Direct Index splash page</h3>
 <img src="{% static 'artist_direct/studio9-thumb.jpg' %}">
 
+<form action="search">
+    <input type="text" placeholder="Search.." name="query">
+    <button type="submit">Submit</button>
+</form>
 
-<img src="{{ form.instance.image.url }}"/>
-
+<ul>
+    {% for profile in profiles %}
+    <li>
+        <a href="{% url 'artist_profile' profile.user.id %}">{{ profile.full_name }}</a>
+    </li>
+    {% endfor %}
+</ul>
 
 {% endblock %}

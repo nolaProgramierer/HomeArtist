@@ -1,17 +1,55 @@
 {% extends "artist_direct/layout.html" %}
 
 {% block body %}
-Profile for: {{ f_name }} {{ l_name }}
+<div class="row">
+    <div class="col-md-6 col-sm-6">
+        <h4>
+            Profile for: {{ f_name }} {{ l_name }}
+        </h4>
+        <div class="profile-image">
+            <img src="{{ form.instance.image.url }}" />
+        </div>
+        <div class="statement">
+            <h6>Artist Statement</h6>
+            {{ statement }}
+        </div>
+        <div class="reviews">
+            <h6>Reviews</h6>
+            {{ reviews }}
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        <div class="bio">
+            <h6>Biography</h6>
+            {{ bio }}
+        </div>
+        <div class="instrument">
+            <h6>Instrumenjt</h6>
+            {{ instrument }}
+        </div>      
+        <div class="location">
+            <h6>Location</h6>
+            {{ location }}
+        </div>
+        <div class="genre">
+            <h6>Genre</h6>
+            {{ genre }}
+        </div>
+        <div class="video_url">
+            <h6>Video Url</h6>
+            {{ video_url }}
+        </div>
+        
+        <!--Edit button renders only if current user is the owner of the profile-->
+        {% if current_user_id  ==  profile_user_id %}
+        <a href="{% url 'edit_profile' profile_id %}" class="btn btn-outline-primary">Edit Profile</a>
+        {% endif %}
+    </div>
 
 
-{{ bio }} {{ location }}
-{{ genre }} {{ instrument }}
+</div>
 
-<!--Edit button renders only if current user is the owner of the profile-->
-{% if current_user_id  ==  profile_user_id %}
-<a href="{% url 'edit_profile' profile_id %}" class="btn btn-outline-primary">Edit Profile</a>
-{% endif %}
 
-<img src="{{ form.instance.image.url }}"/>
+
 
 {% endblock %}

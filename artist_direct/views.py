@@ -7,26 +7,48 @@ from django.forms import ModelForm
 
 from .models import User, Profile, Image
 
+
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ["f_name", "l_name", "bio", "location", "genre", "instrument"]
+        fields = [
+            "f_name",
+            "l_name",
+            "bio",
+            "location",
+            "genre",
+            "instrument",
+            "video_url",
+            "statement",
+            "reviews",
+        ]
 
 
 class EditProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ["f_name", "l_name", "bio", "location", "genre", "instrument"]
+        fields = [
+            "f_name",
+            "l_name",
+            "bio",
+            "location",
+            "genre",
+            "instrument",
+            "video_url",
+            "statement",
+            "reviews",
+        ]
 
 
 class ImageForm(ModelForm):
     class Meta:
         model = Image
         fields = ["image", "title", "description"]
-        
+
 
 def index(request):
     return render(request, "artist_direct/index.html")
+
 
 def login_view(request):
     if request.method == "POST":
@@ -49,6 +71,7 @@ def login_view(request):
     else:
         return render(request, "artist_direct/login.html")
 
+
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
@@ -64,7 +87,9 @@ def register(request):
         confirmation = request.POST["confirmation"]
         if password != confirmation:
             return render(
-                request, "artist_direct/register.html", {"message": "Passwords must match."}
+                request,
+                "artist_direct/register.html",
+                {"message": "Passwords must match."},
             )
 
         # Attempt to create new user
@@ -73,7 +98,9 @@ def register(request):
             user.save()
         except IntegrityError:
             return render(
-                request, "artist_direct/register.html", {"message": "Username already taken."}
+                request,
+                "artist_direct/register.html",
+                {"message": "Username already taken."},
             )
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
@@ -91,17 +118,19 @@ def create_profile(request):
             profile.save()
             return HttpResponseRedirect(reverse("index"))
         else:
-            return render(request, "artist_direct/create_profile.html", { "form": ProfileForm() })
+            return render(
+                request, "artist_direct/create_profile.html", {"form": ProfileForm()}
+            )
     else:
         form = ProfileForm()
-    return render(request, "artist_direct/create_profile.html", { "form": form })
+    return render(request, "artist_direct/create_profile.html", {"form": form})
 
 
 # Display artist index
 def artist_index(request):
     # For users with a profile list the profile alphbetical order
     users = User.objects.all()
-    context = { "users": users }
+    context = {"users": users}
     return render(request, "artist_direct/artist_index.html", context)
 
 
@@ -116,9 +145,12 @@ def artist_profile(request, user_id, newContext={}):
         "location": profile.location,
         "genre": profile.genre,
         "instrument": profile.instrument,
+        "statement": profile.statement,
+        "video_url": profile.video_url,
+        "reviews": profile.reviews,
         "profile_id": profile.id,
         "profile_user_id": profile.user.id,
-        "current_user_id": request.user.id
+        "current_user_id": request.user.id,
     }
     context.update(newContext)
     return render(request, "artist_direct/artist_profile.html", context)
@@ -133,7 +165,7 @@ def edit_profile(request, profile_id):
             edited_obj = form.save(commit=False)
             edited_obj.save()
             return HttpResponseRedirect(reverse("artist_profile", args=(profile_id,)))
-    else:   
+    else:
         form = EditProfileForm(instance=profile)
         context = {"form": form, "profile_id": profile_id}
         return render(request, "artist_direct/edit_profile.html", context)
@@ -143,26 +175,25 @@ def edit_profile(request, profile_id):
 def image_upload(request):
     user = request.user
     user_profile = Profile.objects.get(pk=user.id)
-    
+
     if request.method == "POST":
         form = ImageForm(request.POST, request.FILES)
         if form.is_valid():
-            #image = ImageForm(image_field=request.FILES['image'])
+            # image = ImageForm(image_field=request.FILES['image'])
             form.save()
-            context = { "form": form }
+            context = {"form": form}
             response = artist_profile(request, user_profile.id, context)
-            return response          
-            #return HttpResponseRedirect(reverse("artist_profile", args=(user_profile.id)))
+            return response
+            # return HttpResponseRedirect(reverse("artist_profile", args=(user_profile.id)))
     else:
         form = ImageForm()
-    return render(request, "artist_direct/image_upload.html", {"form": form })
-
-   
+    return render(request, "artist_direct/image_upload.html", {"form": form})
 
 
-        
-
-
-
-
+# Search models
+def search(request):
+    query = request.GET["query"]
+    profiles = Profile.objects.filter(f_name__contains=query)
+    return render(request, "artist_direct/index.html", { "profiles":profiles })
+    
 

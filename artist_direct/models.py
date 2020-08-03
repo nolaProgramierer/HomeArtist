@@ -44,6 +44,9 @@ class Profile(models.Model):
         max_length=24, choices=GENRE_CHOICES, default=SOLO, blank=True
     )
     instrument = models.CharField(max_length=24, blank=True)
+    video_url = models.URLField(blank=True)
+    statement = models.CharField(max_length=250, blank=True)
+    reviews = models.TextField(blank=True)
 
     @property
     def full_name(self):
