@@ -137,8 +137,10 @@ def create_profile(request):
 # Display artist index
 def artist_index(request):
     # For users with a profile list the profile alphbetical order
-    users = User.objects.all()
-    context = {"users": users}
+    #users = User.objects.all()
+    profiles = Profile.objects.all()
+    #context = {"users": users}
+    context = {"profiles": profiles}
     return render(request, "artist_direct/artist_index.html", context)
 
 

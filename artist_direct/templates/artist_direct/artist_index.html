@@ -11,10 +11,9 @@
         <ul class="list-group">
             <!--Show profiles only of users with artist profiles-->
             
-                {% for user in users %}                  
-                    
+                {% for profile in profiles %}                                   
                 <li class="list-group-item list-group-item-action">
-                    <a href="{% url 'artist_profile' user.id %}">{{ user.username }}</a>
+                    <a href="{% url 'artist_profile' profile.id %}">{{ profile.user.username }}</a>
                 </li>
                 {% endfor %}
             
