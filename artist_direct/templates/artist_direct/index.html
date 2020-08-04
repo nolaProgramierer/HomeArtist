@@ -1,35 +1,33 @@
 {% extends "artist_direct/layout.html" %}
 {% load static %}
 
-<style>
-    #splash-img {
-    width: 100%;
-    background-image: url( "{% static 'artist_direct/images/DC_piano(4).jpg' %}");
-}
-</style>
 
 {% block body %}
-<h3>Artist Direct Index splash page</h3>
 <div class="row">
-    <div id="splash-img">
+    <img src="{% static 'artist_direct/images/gl_recital_web0.jpg'%}" class="img-fluid">
+</div>
+
+<div class="row justify-content-center">
+    <div>
+        <h3 id="index-banner">Welcome to Home Artist Direct</h3>
     </div>
 </div>
 
-<img src="{% static 'artist_direct/images/studio9-thumb.jpg' %}" class="img-fluid">
-<img src="{% static 'artist_direct/images/studio7-thumb.jpg'%}" class="img-fluid">
-<img src="{% static 'artist_direct/images/DC_piano(4).jpg'%}" class="img-fluid" id="splash-img">
+<div class="row justify-content-center">
+    <h5>Enjoy the beauty of in-home musical performances!</h5>
+</div>
+<hr>
 
+<div class="row">
+    <div class="col-md-8 offset-md-2" id="index-intro">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum massa ac sapien pulvinar, at ultricies
+        dolor fermentum. Duis euismod, velit vitae ullamcorper consequat, sapien velit dapibus velit, non auctor sapien
+        purus id nunc. Nullam sit amet viverra sapien. Curabitur non vestibulum ligula. Quisque vel nulla vel libero
+        volutpat pharetra. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas
 
+    </div>
 
+</div>
 
-{{ message }}
-
-<ul>
-    {% for profile in profiles %}
-    <li>
-        <a href="{% url 'artist_profile' profile.user.id %}">{{ profile.full_name }}</a>
-    </li>
-    {% endfor %}
-</ul>
 
 {% endblock %}

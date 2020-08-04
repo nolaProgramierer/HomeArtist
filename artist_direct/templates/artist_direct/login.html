@@ -1,24 +1,39 @@
 {% extends "artist_direct/layout.html" %}
+{% load static %}
 
 {% block body %}
 
-    <h2>Login</h2>
+<div class="row">
+    <div class="col-md-8 col-sm-12 id=" login-form">
+        <h2>Welcome back</h2>
+        <h6>Please login</h6>
 
-    {% if message %}
+        {% if message %}
         <div>{{ message }}</div>
-    {% endif %}
+        {% endif %}
 
-    <form action="{% url 'login' %}" method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <input autofocus class="form-control" type="text" name="username" placeholder="Username">
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="password" name="password" placeholder="Password">
-        </div>
-        <input class="btn btn-primary" type="submit" value="Login">
-    </form>
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input autofocus class="form-control" type="text" name="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder="Password">
+            </div>
+            <input class="btn btn-primary" type="submit" value="Login">
+        </form>
 
-    Don't have an account? <a href="{% url 'register' %}">Register here.</a>
+        Don't have an account? <a href="{% url 'register' %}">Register here.</a>
+
+
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <p class="text-center">
+            Enjoy the powerful and intimate experience of salon music!
+        </p>
+        <img src="{% static 'artist_direct/images/nyc_tryout.jpeg' %}" class="img-fluid rounded" alt="Met ceiling">
+    </div>
+</div>
+
 
 {% endblock %}

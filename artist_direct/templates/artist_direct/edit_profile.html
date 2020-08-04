@@ -1,12 +1,12 @@
 {% extends "artist_direct/layout.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block body %}
 
 <h3>Edit Artist Profile</h3>
 <form action="", method="POST">
-    {% csrf_token %}
-    
+    {% csrf_token %}  
     {{ form|crispy }}
     <input type="submit" value="Edit Profile">
 

@@ -1,37 +1,58 @@
 {% extends "artist_direct/layout.html" %}
+{% load static %}
 
 {% block body %}
+<div class="row" id="register-row">
+    <div class="col-md-8 col-sm-12" id="register-form">
+        <h3 class="text-center">Register here for great music</h3>
 
-    <h2>Register</h2>
-
-    {% if message %}
+        {% if message %}
         <div>{{ message }}</div>
-    {% endif %}
+        {% endif %}
 
-    <form action="{% url 'register' %}" method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <input class="form-control" autofocus type="text" name="username" placeholder="Username">
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="email" name="email" placeholder="Email Address">
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="password" name="password" placeholder="Password">
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
-        </div>
-        <div class="form-group">
-            <label for="type">Choose a site user classification:</label>
-            <select class="form-control" name="type" id="type">
-                <option value="event_organizer">Event organizer</option>
-                <option value="artist">Artist</option>
-            </select>
-        </div>
-        <input class="btn btn-primary" type="submit" value="Register">
-    </form>
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input class="form-control" autofocus type="text" name="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="email" name="email" placeholder="Email Address">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+            </div>
+            <div class="form-group">
+                <label for="type">Choose a site user classification:</label>
+                <select class="form-control" name="type" id="type">
+                    <option value="event_organizer">Event organizer</option>
+                    <option value="artist">Artist</option>
+                </select>
+            </div>
+            <input class="btn btn-primary" type="submit" value="Register">
+        </form>
 
-    Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+        Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+
+    </div>
+
+    <div class="col-md-4 col-sm-12" id="register-statement">
+        <div class="card">
+            <div class="card-body">
+                <p>
+                    All artists or people who would like to book or post a review of artists must register on the site.
+                    Otherwise, enjoy browsing our selection of artists.
+                </p>
+            </div>
+        </div>
+
+        <img src="{% static 'artist_direct/images/DC_piano(6).jpg' %}" class="img-fluid rounded" alt="Pianist"
+            id="register-img">
+    </div>
+
+</div>
+
 
 {% endblock %}

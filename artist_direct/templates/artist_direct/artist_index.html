@@ -1,16 +1,33 @@
 {% extends "artist_direct/layout.html" %}
+{% load static %}
 
 {% block body %}
+<div class="row justify-content-center">
+    <h3>Artist Listing</h3>
+</div>
 
-<h3>Artist Direct Index splash page</h3>
-
-<ul>
-    {% for user in users %}
-    <li>
-        <a href="{% url 'artist_profile' user.id %}">{{ user.username }}</a>
-    </li>
-    {% endfor %}
-</ul>
-
+<div class="row">
+    <div class="col-md-4 offset-md-1 col-sm-10 offset-sm-2">
+        <ul class="list-group">
+            {% for user in users %}
+            <li class="list-group-item list-group-item-action">
+                <a href="{% url 'artist_profile' user.id %}">{{ user.username }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <div id="artist-welcome">
+            <h5>Hear our wonderful artists in your own home!</h5>
+            <p>
+                Sed et est quis arcu pretium cursus. Donec blandit magna mauris, at tincidunt sem dapibus posuere. Cras
+                egestas nisl sit amet suscipit elementum. Vivamus eget pretium lectus, quis tempus purus. Nunc tortor
+                dui, ultrices eget sapien in, tempus fermentum arcu. Nam tristique ultrices interdum. Aliquam erat
+                volutpat.
+            </p>
+        </div>
+        <img src="{% static 'artist_direct/images/MuK_Kleiner-Saal.jpg' %}" class="img-fluid img-thumbnail rounded" id="index-pic">
+    </div>
+</div>
 
 {% endblock %}
