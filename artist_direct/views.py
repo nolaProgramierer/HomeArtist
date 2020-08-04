@@ -210,8 +210,9 @@ def search(request):
             | Q(bio__icontains=query)
         )
         profiles = Profile.objects.filter(matches).distinct()
-        return render(request, "artist_direct/index.html", {"profiles": profiles})
-    else:
-        message = "There are no matches for your entry."
-        return render(request, "artist_direct/index.html", {"message": message})
+        if profiles.count() != 0:
+            return render(request, "artist_direct/artist_index.html", {"profiles": profiles})
+        else:
+            message = "There are no matches for your entry."     
+            return render(request, "artist_direct/artist_index.html", {"message":message})
 

@@ -16,6 +16,18 @@ class User(AbstractUser):
         max_length=24, choices=USER_TYPE_CHOICES, default=EVENT_ORGANIZER
     )
 
+    # Return boolean if a matching profile user from 'profile' side of relationship exists
+    @property
+    def find_user_profile(self):
+        if User.objects.filter(user_profile = self.id):
+            return True
+
+    # Return a matching profile id for logged in user
+    @property
+    def user_profile_id(self):
+         return self.user_profile.get(pk=self.id).id
+
+
     def __str__(self):
         return f"User: {self.username}, Email: {self.email} Type: {self.type}"
 
@@ -65,7 +77,7 @@ class Profile(models.Model):
     def full_name(self):
         "Returns user's full name"
         return "%s %s" % (self.f_name, self.l_name)
-
+    
     def __str__(self):
         return f"User Profile: {self.f_name}, {self.l_name}, Bio:  {self.bio}, Resides:{self.location}, Genre: {self.genre}, Instrument: {self.instrument}"
 

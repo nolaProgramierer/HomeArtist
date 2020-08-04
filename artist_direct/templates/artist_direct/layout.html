@@ -36,17 +36,17 @@
                     <a class="nav-link" href="{% url 'artist_index' %}">Artist Listing<span
                             class="sr-only">(current)</span></a>
                 </li>
-                
+
                 <!--If user is logged in or register, hide login & register on navbar-->
                 {% if not user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">Register</a>
-                    </li>                  
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Login</a>
-                    </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
                 {% endif %}
-                
+
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                 </li>
@@ -58,9 +58,19 @@
                         aria-haspopup="true" aria-expanded="false">
                         Artist link
                     </a>
+
+                    <!--User model method: if artist has profile, hide create profile button-->
+                    {% if not request.user.find_user_profile %}
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="{% url 'create_profile' %}">Create Profile</a>
                     </div>
+                    {% else %}
+                    <!--User model method: if user has profile show edit dropdown-->
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{% url 'edit_profile' request.user.user_profile_id %}">Edit Your
+                            Profile</a>
+                    </div>
+                    {% endif %}
                 </li>
                 {% endif %}
             </ul>
