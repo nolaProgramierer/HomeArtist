@@ -47,6 +47,7 @@ class ImageForm(ModelForm):
         fields = ["image", "title", "description"]
 
 
+
 def index(request):
     return render(request, "artist_direct/index.html")
 

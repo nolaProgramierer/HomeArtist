@@ -12,13 +12,14 @@ class User(AbstractUser):
         (ARTIST, "Artist"),
     ]
 
-    type = models.CharField(max_length=24, choices=USER_TYPE_CHOICES, default=EVENT_ORGANIZER)
+    type = models.CharField(
+        max_length=24, choices=USER_TYPE_CHOICES, default=EVENT_ORGANIZER
+    )
 
     def __str__(self):
         return f"User: {self.username}, Email: {self.email} Type: {self.type}"
 
     pass
-
 
 
 class Profile(models.Model):
@@ -83,3 +84,11 @@ class Image(models.Model):
     def __str__(self):
         return f"Image title: {self.title} Description: {self.description} Image Profile User: {self.profile.user.username}"
 
+
+class Comment(models.Model):
+    text = models.CharField(max_length=50, blank=True)
+    rating = models.IntegerField(blank=True)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="profile_comments")
+
+    def __str__(self):
+        return f"Comment: {self.text} Rating: {self.rating}"
