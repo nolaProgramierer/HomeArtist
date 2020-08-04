@@ -19,7 +19,17 @@
             <h6>Reviews</h6>
             {{ reviews }}
         </div>
-        {{ form }}
+
+        <!--Add condition here for registered user!!!-->
+        <div id="comments">
+            <form id="comment-form">
+                <input id="comment-text" placeholder="Comment here...">
+                <input id="rating" placeholder="Number of stars">
+                <input type="submit" id="submit">
+            </form>
+
+        </div>
+        
     </div>
     <div class="col-md-6 col-sm-6">
         <div class="bio">
@@ -40,7 +50,7 @@
         </div>
         <div class="video_url">
             <h6>Video Url</h6>
-            {{ video_url }}
+            {{ video_url|urlize }}
         </div>
         
         <!--Edit button renders only if current user is the owner of the profile-->
