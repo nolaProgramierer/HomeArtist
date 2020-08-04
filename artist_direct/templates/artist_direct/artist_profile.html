@@ -50,7 +50,7 @@
         </div>
         <div class="video_url">
             <h6>Video Url</h6>
-            {{ video_url|urlize }}
+            {{ video_url|urlizetrunc:30 }}
         </div>
         
         <!--Edit button renders only if current user is the owner of the profile-->
