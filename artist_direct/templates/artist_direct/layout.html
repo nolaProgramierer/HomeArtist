@@ -50,6 +50,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                 </li>
+
+                <!--Link available only for users of type 'artist'-->
+                {% if request.user.type == "artist" %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
@@ -59,6 +62,7 @@
                         <a class="dropdown-item" href="{% url 'create_profile' %}">Create Profile</a>
                     </div>
                 </li>
+                {% endif %}
             </ul>
             <form action="search" class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="text" placeholder="Artist search.." name="query"
