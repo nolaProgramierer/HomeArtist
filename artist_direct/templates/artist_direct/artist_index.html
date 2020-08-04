@@ -18,7 +18,7 @@
 
             {% for profile in profiles %}
             <li class="list-group-item list-group-item-action">
-                <a href="{% url 'artist_profile' profile.id %}">{{ profile.user.username }}</a>
+                <a href="{% url 'artist_profile' profile.user.id %}">{{ profile.user.username }}</a>
             </li>
             {% endfor %}
 

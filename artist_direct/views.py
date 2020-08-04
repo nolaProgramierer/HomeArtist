@@ -136,10 +136,7 @@ def create_profile(request):
 
 # Display artist index
 def artist_index(request):
-    # For users with a profile list the profile alphbetical order
-    #users = User.objects.all()
     profiles = Profile.objects.all()
-    #context = {"users": users}
     context = {"profiles": profiles}
     return render(request, "artist_direct/artist_index.html", context)
 
@@ -200,7 +197,7 @@ def image_upload(request):
     return render(request, "artist_direct/image_upload.html", {"form": form})
 
 
-# Search models
+# Search models for entered query
 def search(request):
     query = request.GET["query"]
     if query is not None:
