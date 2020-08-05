@@ -12,69 +12,79 @@
             <img src="{{ form.instance.image.url }}" />
         </div>
         <div class="statement">
-            <h6>Artist Statement</h6>
+            <h6>Artist Statement:</h6>
             {{ statement }}
         </div>
         <div class="reviews">
-            <h6>Reviews</h6>
+            <h6>Reviews:</h6>
             {{ reviews }}
         </div>
 
-        <div><h6>Comments:</h6></div>
-        <div id="comment-box">
-            <ul>
-                {% for comment in comments %}
-                <li>
-                    {{ comment.text }}
-                </li>    
-                {% endfor %}
-            </ul>             
-        </div>
-        <div><h6>Ratings:</h6></div>
-        <div id="rating-box">
-            <ul>
-                {% for comment in comments %}
-                <li>
-                    {{ comment.rating }} Stars
-                </li>    
-                {% endfor %}
-            </ul>      
+        <div class="card">
+            <div class="card-body">
+                <div>
+                    <h6>Comments:</h6>
+                </div>
+                <div id="comment-box">
+                    <ul>
+                        {% for comment in comments %}
+                        <li>
+                            {{ comment.text }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div>
+                    <h6>Ratings:</h6>
+                </div>
+                <div id="rating-box">
+                    <ul>
+                        {% for comment in comments %}
+                        <li>
+                            {{ comment.rating }} Stars
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </div>
         </div>
 
-        <!--Add condition here for registered user!!!-->
+        <!--Comment section available for registered users only-->
+        {% if request.user.is_authenticated %}
         <div id="comments">
             <form id="comment-form">
                 {% csrf_token %}
-                <input id="comment-text"  data-profile-id = "{{ profile_id }}" placeholder="Comment here...">
-                <input id="rating"  data-profile-id = "{{ profile_id }}" placeholder="Number of stars">
+                <input id="comment-text" data-profile-id="{{ profile_id }}" placeholder="Comment here...">
+                <input id="rating" data-profile-id="{{ profile_id }}" placeholder="Number of stars">
                 <input type="submit" id="submit">
             </form>
-
         </div>
-        
+        {% endif %}
+
     </div>
     <div class="col-md-6 col-sm-6">
         <div class="bio">
-            <h6>Biography</h6>
+            <h6>Biography:</h6>
             {{ bio }}
         </div>
         <div class="instrument">
-            <h6>Instrumenjt</h6>
+            <h6>Instrument:</h6>
             {{ instrument }}
-        </div>      
+        </div>
         <div class="location">
             <h6>Location</h6>
             {{ location }}
         </div>
         <div class="genre">
-            <h6>Genre</h6>
+            <h6>Genre:</h6>
             {{ genre }}
         </div>
         <div class="video_url">
-            <h6>Video Url</h6>
+            <h6>Video Url:</h6>
             {{ video_url|urlizetrunc:30 }}
         </div>
-        
+
         <!--Edit button renders only if current user is the owner of the profile-->
         {% if current_user_id  ==  profile_user_id %}
         <a href="{% url 'edit_profile' profile_id %}" class="btn btn-outline-primary">Edit Profile</a>
