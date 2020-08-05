@@ -37,7 +37,7 @@
                             class="sr-only">(current)</span></a>
                 </li>
 
-                <!--If user is logged in or register, hide login & register on navbar-->
+                <!--If user is logged in or registered, hide login & register on navbar-->
                 {% if not user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'register' %}">Register</a>
@@ -45,12 +45,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">Login</a>
                 </li>
-                {% endif %}
-
+                {% endif %}                            
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                 </li>
-
+              
                 <!--Link available only for users of type 'artist'-->
                 {% if request.user.type == "artist" %}
                 <li class="nav-item dropdown">
@@ -58,7 +57,6 @@
                         aria-haspopup="true" aria-expanded="false">
                         Artist link
                     </a>
-
                     <!--User model method: if artist has profile, hide create profile button-->
                     {% if not request.user.find_user_profile %}
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
