@@ -51,7 +51,8 @@
         </div>
 
         <!--Comment section available for registered users only-->
-        {% if request.user.is_authenticated %}
+        <!--User cannot give themselves a review-->
+        {% if request.user.is_authenticated and request.user.id != profile_user_id %}
         <div id="comments">
             <form id="comment-form">
                 {% csrf_token %}
