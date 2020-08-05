@@ -56,8 +56,14 @@
         <div id="comments">
             <form id="comment-form">
                 {% csrf_token %}
-                <input id="comment-text" data-profile-id="{{ profile_id }}" placeholder="Comment here...">
-                <input id="rating" data-profile-id="{{ profile_id }}" placeholder="Number of stars">
+                <input id="comment-text" data-profile-id="{{ profile_id }}" placeholder="Comment here...">              
+                <select id="rating" data-profile-id="{{ profile_id }}">
+                    <option value="1">1 star</option>
+                    <option value="2">2 star</option>
+                    <option value="3">3 star</option>
+                    <option value="4">4 star</option>
+                    <option value="5">5 star</option>
+                </select>
                 <input type="submit" id="submit">
             </form>
         </div>

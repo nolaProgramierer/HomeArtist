@@ -18,7 +18,6 @@ function addComment(profile_id) {
     const comment_txt = document.querySelector("#comment-text").value;
     const rating_txt = document.querySelector("#rating").value;
     const data = {comment:comment_txt, rating:rating_txt};
-
     const token = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
 
     console.log(profile_id);
@@ -39,6 +38,11 @@ function addComment(profile_id) {
             let textnode = document.createTextNode(data.comment);
             node.appendChild(textnode);
             document.querySelector("#comment-box").appendChild(node);
+            
+            let node1 = document.createElement("P");
+            let textnode1 = document.createTextNode(data.rating);
+            node.appendChild(textnode1);
+            document.querySelector("#comment-box").appendChild(node1);
             //document.querySelector("#comment-box").appendChild(document.createTextNode(data.comment));
             //document.querySelector("#rating-box").appendChild(document.createTextNode(data.stars));
         });

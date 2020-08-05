@@ -5,13 +5,11 @@
 {% block body %}
 
 <h3>Create User Profile</h3>
-<form action="create_profile", method="POST">
+<form action="create_profile" , method="POST">
     {% csrf_token %}
-    
     {{ form|crispy }}
     <input type="submit" value="Create Profile">
-
 </form>
-
+<a href="{% url 'image_upload' %}" class="btn btn-outline-primary">Add profile picture</a>
 
 {% endblock %}
