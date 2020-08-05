@@ -181,21 +181,20 @@ def edit_profile(request, profile_id):
 
 
 #  Upload image
-def image_upload(request):
+def image_upload(request, profile_id):
+    user = request.user
+    user_profile = Profile.objects.get(user=user.id)
     if request.method == "POST":
-        user = request.user
-        user_profile = Profile.objects.get(user=user.id)
         form = ImageForm(request.POST, request.FILES)
         if form.is_valid():
-            # image = ImageForm(image_field=request.FILES['image'])
             form.save()
             context = {"form": form}
-            response = artist_profile(request, user_profile.id, context)
+            response = artist_profile(request, profile_id, context)
             return response
-            # return HttpResponseRedirect(reverse("artist_profile", args=(user_profile.id)))
     else:
         form = ImageForm()
-        return render(request, "artist_direct/image_upload.html", {"form": form})
+        context = {"form": form, "user_profile":user_profile }
+        return render(request, "artist_direct/image_upload.html", context)
 
 
 # Search models for entered query
