@@ -5,7 +5,7 @@
 {% block body %}
 
 <h3>Edit Artist Profile</h3>
-<form action="", method="POST">
+<form action="{% url 'edit_profile' profile_id %}", method="POST">
     {% csrf_token %}  
     {{ form|crispy }}
     <input type="submit" value="Edit Profile">

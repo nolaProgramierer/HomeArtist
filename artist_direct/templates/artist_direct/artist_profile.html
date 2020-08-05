@@ -94,7 +94,7 @@
 
         <!--Edit button renders only if current user is the owner of the profile-->
         {% if current_user_id  ==  profile_user_id %}
-        <a href="{% url 'edit_profile' profile_id %}" class="btn btn-outline-primary">Edit Profile</a>
+        <a href="{% url 'edit_profile' profile_user_id %}" class="btn btn-outline-primary">Edit Profile</a>
         {% endif %}
     </div>
 

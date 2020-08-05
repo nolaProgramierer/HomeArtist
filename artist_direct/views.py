@@ -167,7 +167,7 @@ def artist_profile(request, user_id, newContext={}):
 
 # Edit profile of artist
 def edit_profile(request, profile_id):
-    profile = get_object_or_404(Profile, pk=profile_id)
+    profile = get_object_or_404(Profile, user=profile_id)
     if request.method == "POST":
         form = EditProfileForm(request.POST, instance=profile)
         if form.is_valid():
@@ -182,10 +182,9 @@ def edit_profile(request, profile_id):
 
 #  Upload image
 def image_upload(request):
-    user = request.user
-    user_profile = Profile.objects.get(pk=user.id)
-
     if request.method == "POST":
+        user = request.user
+        user_profile = Profile.objects.get(user=user.id)
         form = ImageForm(request.POST, request.FILES)
         if form.is_valid():
             # image = ImageForm(image_field=request.FILES['image'])
@@ -196,7 +195,7 @@ def image_upload(request):
             # return HttpResponseRedirect(reverse("artist_profile", args=(user_profile.id)))
     else:
         form = ImageForm()
-    return render(request, "artist_direct/image_upload.html", {"form": form})
+        return render(request, "artist_direct/image_upload.html", {"form": form})
 
 
 # Search models for entered query
