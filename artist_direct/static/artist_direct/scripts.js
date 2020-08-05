@@ -5,8 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
  
     document.querySelector("#submit").addEventListener("click", function () {
         
-        addComment(comment_id.dataset.profileId);      
-        console.log(comment_id.dataset.profileId);
+        addComment(comment_id.dataset.profileId);
+        console.log("This is after function call.")      
+        return false;
     });
 
     console.log("DOM content loaded");
@@ -34,6 +35,12 @@ function addComment(profile_id) {
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
+            
+            let node = document.createElement("P");
+            let textnode = document.createTextNode(data.comment);
+            node.appendChild(textnode);
+            document.querySelector("#comment-box").appendChild(node);
+            //document.querySelector("#comment-box").appendChild(document.createTextNode(data.comment));
+            //document.querySelector("#rating-box").appendChild(document.createTextNode(data.stars));
         });
-
 }// End addComment
