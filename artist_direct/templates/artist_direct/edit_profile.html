@@ -9,8 +9,7 @@
     {% csrf_token %}  
     {{ form|crispy }}
     <input type="submit" value="Edit Profile">
-
 </form>
-
+<a href="{% url 'image_upload' %}" class= "btn btn-outline-primary">Add profile picture</a>
 
 {% endblock %}
