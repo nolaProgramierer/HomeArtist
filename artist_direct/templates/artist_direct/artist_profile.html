@@ -20,9 +20,25 @@
             {{ reviews }}
         </div>
 
+        <div><h6>Comments:</h6></div>
         <div id="comment-box">
+            <ul>
+                {% for comment in comments %}
+                <li>
+                    {{ comment.text }}
+                </li>    
+                {% endfor %}
+            </ul>             
         </div>
+        <div><h6>Ratings:</h6></div>
         <div id="rating-box">
+            <ul>
+                {% for comment in comments %}
+                <li>
+                    {{ comment.rating }} Stars
+                </li>    
+                {% endfor %}
+            </ul>      
         </div>
 
         <!--Add condition here for registered user!!!-->

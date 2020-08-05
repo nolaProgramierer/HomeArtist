@@ -1,13 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    // Retrieve profile_id of user
+    // Retrieve selector of comment element
     const comment_id = document.querySelector("#comment-text");
  
-    document.querySelector("#submit").addEventListener("click", function () {
-        
+    document.querySelector("#submit").addEventListener("click", function (event) {     
         addComment(comment_id.dataset.profileId);
-        console.log("This is after function call.")      
-        return false;
+        console.log("This is after the submit function call.");
+        event.preventDefault();      
     });
 
     console.log("DOM content loaded");
@@ -15,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Add comment to artist profile
 function addComment(profile_id) {
-    // Get value from comment field
+    // Get values from comment field
     const comment_txt = document.querySelector("#comment-text").value;
     const rating_txt = document.querySelector("#rating").value;
     const data = {comment:comment_txt, rating:rating_txt};

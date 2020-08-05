@@ -145,6 +145,7 @@ def artist_index(request):
 def artist_profile(request, user_id, newContext={}):
     user = get_object_or_404(User, pk=user_id)
     profile = get_object_or_404(Profile, user=user_id)
+    comments = Comment.objects.filter(profile=profile.id)
     context = {
         "f_name": profile.f_name,
         "l_name": profile.l_name,
@@ -158,6 +159,7 @@ def artist_profile(request, user_id, newContext={}):
         "profile_id": profile.id,
         "profile_user_id": profile.user.id,
         "current_user_id": request.user.id,
+        "comments": comments,
     }
     context.update(newContext)
     return render(request, "artist_direct/artist_profile.html", context)
