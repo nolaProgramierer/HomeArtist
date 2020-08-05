@@ -23,8 +23,9 @@
         <!--Add condition here for registered user!!!-->
         <div id="comments">
             <form id="comment-form">
-                <input id="comment-text" placeholder="Comment here...">
-                <input id="rating" placeholder="Number of stars">
+                {% csrf_token %}
+                <input id="comment-text"  data-profile-id = "{{ profile_id }}" placeholder="Comment here...">
+                <input id="rating"  data-profile-id = "{{ profile_id }}" placeholder="Number of stars">
                 <input type="submit" id="submit">
             </form>
 

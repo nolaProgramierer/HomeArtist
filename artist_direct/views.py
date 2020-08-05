@@ -1,12 +1,13 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.db import IntegrityError
 from django.forms import ModelForm
 from django.db.models import Q
+import json
 
-from .models import User, Profile, Image
+from .models import User, Profile, Image, Comment
 
 
 class ProfileForm(ModelForm):
@@ -213,3 +214,24 @@ def search(request):
             message = "There are no matches for your entry."     
             return render(request, "artist_direct/artist_index.html", {"message":message})
 
+
+def add_comment(request, profile_id):
+    
+    print("Within 'add_comment function")
+    
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+    
+    # Get profile of the artist on the artist profile page
+    profile_obj = Profile.objects.get(pk=profile_id)
+    
+    # Retrieve data from the json object
+    data = json.loads(request.body)
+    comment = data.get("comment")
+    stars = data.get("rating")
+    
+    # Create new comment
+    new_comment = Comment(text=comment, rating=stars, profile=profile_obj)
+    new_comment.save()
+    
+    return JsonResponse({"message": "Comment successfully saved"}, status=201)
